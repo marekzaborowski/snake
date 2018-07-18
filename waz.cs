@@ -64,7 +64,106 @@ namespace Snake
             }
              
         }
+        public void MetodaWypisujacaSkosnegoWeza(int szerokosc)
+        {
+            Console.WriteLine("@");
+            
+            //etap pierwszy
+            for (int i = 0; i < 1; i++)
+            {
+                for (int j = 0; j < szerokosc; j++)
+                {
+                    Console.Write(" ");
+                }
+                Console.WriteLine("@@");
 
-      
+                szerokosc++;
+
+                for (int j = 0; j < szerokosc; j++)
+                {
+                    Console.Write(" ");
+                }
+                Console.WriteLine("@@");
+
+                for (int j = 0; j < szerokosc+1; j++)
+                {
+                    Console.Write(" ");
+                }
+                Console.WriteLine("@");
+
+            
+
+            }
+
+            //etap druga
+            for (int i = 0; i < 1; i++)
+            {
+                szerokosc--;
+                for (int j = 0; j < szerokosc + 1; j++)
+                {
+                    Console.Write(" ");
+                }
+                Console.WriteLine("@@");
+
+                szerokosc--;
+
+                for (int j = 0; j < szerokosc + 1; j++)
+                {
+                    Console.Write(" ");
+                }
+                Console.WriteLine("@@");
+
+                szerokosc++;
+
+                for (int j = 0; j < szerokosc; j++)
+                {
+                    Console.Write(" ");
+                }
+                Console.WriteLine("@");
+            }
+
+        }
+        // rozwiazanie z tablica jednowymiarowa
+        public void MetodaNowegoSpojrzeniaNaKonsole(punkt[] pozycjaKlocka, int ostatniIndeks)
+        {
+            for (int j = 0, k =0, l=0, i = 0; j <= pozycjaKlocka[ostatniIndeks].y;)
+            {
+                if (k == pozycjaKlocka[i].x)
+                {
+                    if(i == -1)
+                    {
+                        Console.Write(">");
+                    }
+                    else
+                    {
+                        Console.Write("@");
+                    }                   
+                    if (i != ostatniIndeks+1)
+                    {
+                        i++;
+                    }
+                    if (l != ostatniIndeks)
+                    {
+                        l++;
+                    }
+                    k++;                    
+                }
+                else
+                {
+                    Console.Write(" ");
+                    k++;
+                }
+                if (j != pozycjaKlocka[l].y)
+                {
+                    Console.WriteLine();
+                    j++;
+                    k = 0;
+                }
+                if (pozycjaKlocka[ostatniIndeks].y == j && i == ostatniIndeks+1)
+                {
+                    j++;
+                }
+            }
+        }
     }
 }
