@@ -11,47 +11,64 @@ namespace Snake
             waz w = new waz();
 
 
-            punkt[] pozycjaKlocka;
             int ostatniIndeks = 4;
-            pozycjaKlocka = new punkt[ostatniIndeks];
+            punkt[] pozycjaKlocka = new punkt[ostatniIndeks];
+            punkt[] pozycjaKlocka2 = new punkt[ostatniIndeks];
+
 
             while (true)
             {
-                char znak='g';
+                char znak='x';
                 char f='f';
                 char r = 'r';
                 char d = 'd';
                 char g = 'g';
+                char x = 'x';
+                int i = 0;
+                int j = 0;
 
-                for (int i = 0, j = 0; 1 < 2;)
+
+
+                for (int k=0; 1 < 2;)
                     {
                     if (Console.KeyAvailable)
                     {
                         znak = Console.ReadKey(true).KeyChar;
+                    }
+                    if (znak == x)
+                    {
+                        punkt punkt11 = new punkt(i, j);
+                        punkt punkt22 = new punkt(i + 1, j);
+                        punkt punkt33 = new punkt(i + 2, j);
+                        punkt punkt44 = new punkt(i + 3, j);
+
+                        pozycjaKlocka[0] = punkt11;
+                        pozycjaKlocka[1] = punkt22;
+                        pozycjaKlocka[2] = punkt33;
+                        pozycjaKlocka[3] = punkt44;
                     }
                     if (znak == g)
                     {
                         punkt punkt1 = new punkt(i, j);
                         punkt punkt2 = new punkt(i + 1, j);
                         punkt punkt3 = new punkt(i + 2, j);
-                        punkt punkt4 = new punkt(i + 3, j);
-                        i++;
-                        pozycjaKlocka[0] = punkt1;
-                        pozycjaKlocka[1] = punkt2;
-                        pozycjaKlocka[2] = punkt3;
+                        punkt punkt4 = new punkt(pozycjaKlocka[3].x+1, pozycjaKlocka[3].y);
+                       // i++;
+                        pozycjaKlocka[0] = pozycjaKlocka[1];
+                        pozycjaKlocka[1] = pozycjaKlocka[2];
+                        pozycjaKlocka[2] = pozycjaKlocka[3];
                         pozycjaKlocka[3] = punkt4;
                     }
                     if (znak == f)
-                    {
-                        
+                    {                     
                         punkt punkt1 = new punkt(i, j);
                         punkt punkt2 = new punkt(i, j+1);
                         punkt punkt3 = new punkt(i, j+2);
-                        punkt punkt4 = new punkt(i, j+3);
-                        j++;
-                        pozycjaKlocka[0] = punkt1;
-                        pozycjaKlocka[1] = punkt2;
-                        pozycjaKlocka[2] = punkt3;
+                        punkt punkt4 = new punkt(pozycjaKlocka[3].x, pozycjaKlocka[3].y+1);
+                        // j++;
+                        pozycjaKlocka[0] = pozycjaKlocka[1];
+                        pozycjaKlocka[1] = pozycjaKlocka[2];
+                        pozycjaKlocka[2] = pozycjaKlocka[3];
                         pozycjaKlocka[3] = punkt4;
                     }
                     if (znak == r)
@@ -60,11 +77,11 @@ namespace Snake
                         punkt punkt1 = new punkt(i, j);
                         punkt punkt2 = new punkt(i, j + 1);
                         punkt punkt3 = new punkt(i, j+2);
-                        punkt punkt4 = new punkt(i, j+3);
-                        j--;
-                        pozycjaKlocka[0] = punkt1;
-                        pozycjaKlocka[1] = punkt2;
-                        pozycjaKlocka[2] = punkt3;
+                        punkt punkt4 = new punkt(pozycjaKlocka[3].x, pozycjaKlocka[3].y - 1);
+                        //j--;
+                        pozycjaKlocka[0] = pozycjaKlocka[1];
+                        pozycjaKlocka[1] = pozycjaKlocka[2];
+                        pozycjaKlocka[2] = pozycjaKlocka[3];
                         pozycjaKlocka[3] = punkt4;
                     }
                     if (znak == d)
@@ -73,60 +90,22 @@ namespace Snake
                         punkt punkt1 = new punkt(i, j);
                         punkt punkt2 = new punkt(i + 1, j);
                         punkt punkt3 = new punkt(i + 2, j);
-                        punkt punkt4 = new punkt(i + 3, j);
-                        i--;
-                        pozycjaKlocka[0] = punkt1;
-                        pozycjaKlocka[1] = punkt2;
-                        pozycjaKlocka[2] = punkt3;
+                        punkt punkt4 = new punkt(pozycjaKlocka[3].x-1, pozycjaKlocka[3].y);
+                        //  i--;
+                        pozycjaKlocka[0] = pozycjaKlocka[1];
+                        pozycjaKlocka[1] = pozycjaKlocka[2];
+                        pozycjaKlocka[2] = pozycjaKlocka[3];
                         pozycjaKlocka[3] = punkt4;
                     }
-                    
+                    Array.Copy(pozycjaKlocka, pozycjaKlocka2, ostatniIndeks);
 
-
-                    
-
-
-                    s.Metodasortujacatablice(pozycjaKlocka, ostatniIndeks - 1);
-                    w.MetodaNowegoSpojrzeniaNaKonsole(pozycjaKlocka, ostatniIndeks - 1);
-
+                    s.Metodasortujacatablice(pozycjaKlocka2, ostatniIndeks - 1);
+                    w.MetodaNowegoSpojrzeniaNaKonsole(pozycjaKlocka2, ostatniIndeks - 1);
 
                     Thread.Sleep(100);
                     Console.Clear();
                     }
             }
-            /*punkt punkt1 = new punkt(1, 1);
-            punkt punkt2 = new punkt(2, 1);
-            punkt punkt3 = new punkt(2, 1);
-            punkt punkt4 = new punkt(3, 1);
-
-            punkt[] pozycjaKlocka;
-            int ostatniIndeks = 2;
-            pozycjaKlocka = new punkt[ostatniIndeks];
-
-            pozycjaKlocka[0] = punkt1;
-            pozycjaKlocka[1] = punkt2;
-
-            punkt[] pozycjaKlocka2;
-            int ostatniIndeks2 = 2;
-            pozycjaKlocka2 = new punkt[ostatniIndeks2];
-
-            pozycjaKlocka2[0] = punkt3;
-            pozycjaKlocka2[1] = punkt4;
-
-            sort s = new sort();
-            sort s2 = new sort();
-            waz w = new waz();
-            waz w2 = new waz();
-
-            s.Metodasortujacatablice(pozycjaKlocka, ostatniIndeks - 1);
-            w.MetodaNowegoSpojrzeniaNaKonsole(pozycjaKlocka, ostatniIndeks-1);
-         
-            Console.ReadLine();
-            Console.Clear();
-            Thread.Sleep(3000);
-            s2.Metodasortujacatablice(pozycjaKlocka2, ostatniIndeks2 - 1);
-            w2.MetodaNowegoSpojrzeniaNaKonsole(pozycjaKlocka2, ostatniIndeks2 - 1);
-            Console.ReadLine(); */
         }
     }
 }
