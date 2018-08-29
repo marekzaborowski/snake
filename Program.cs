@@ -7,22 +7,14 @@ namespace Snake
     {
         static void Main(string[] args)
         {
-            sort s = new sort();
-            waz w = new waz();
-            int ostatniIndeks = 5;
+            pozycjonowanie p = new pozycjonowanie();
+            int ostatniIndeks = 15;
             punkt[] pozycjaKlocka = new punkt[ostatniIndeks];
-            punkt[] pozycjaKlocka2 = new punkt[ostatniIndeks];
 
             while (true)
             {
-                char znak='x';
-                char f='f';
-                char r = 'r';
-                char d = 'd';
-                char g = 'g';
-                char x = 'x';
-                int i = 0;
-                int j = 0;
+                char znak = 'x', f = 'f', r = 'r', d = 'd', g = 'g', x = 'x';
+                int i = 0, j = 0, b = 0;
 
                 for (int k=0; 1 < 2;)
                     {
@@ -34,10 +26,13 @@ namespace Snake
                     {
                         for(int q=0; q<ostatniIndeks; q++)
                         {
-                            pozycjaKlocka[i] = new punkt(i, j);
-                            i++;
+                            pozycjaKlocka[b] = new punkt(i, j);
+                            j++;
+                            b++;
+                            
                         }
-                        i = 0;
+                        j = 0;
+                        b = 0;
                     }
                     if (znak == g)
                     {                      
@@ -91,12 +86,50 @@ namespace Snake
                                 pozycjaKlocka[q] = pozycjaKlocka[q + 1];
                         }
                     }
-                    Array.Copy(pozycjaKlocka, pozycjaKlocka2, ostatniIndeks);
-                    s.Metodasortujacatablice(pozycjaKlocka2, ostatniIndeks - 1);
-                    w.MetodaNowegoSpojrzeniaNaKonsole(pozycjaKlocka2, ostatniIndeks - 1);
-                    Thread.Sleep(100);
-                    Console.Clear();
+
+                    for (int ii = 0; ii <= ostatniIndeks-1; ii++)
+                    {
+                        if (pozycjaKlocka[ostatniIndeks-1].x == -1 && znak == d )
+                        {
+                            pozycjaKlocka[ostatniIndeks-1].x = 119;
+                        }
+                        if (pozycjaKlocka[ostatniIndeks - 1].x == 120 && znak == g)
+                        {
+                            pozycjaKlocka[ostatniIndeks - 1].x = 0;
+                        }
+                        if (pozycjaKlocka[ostatniIndeks - 1].y == 0 && znak == r)
+                        {
+                            pozycjaKlocka[ostatniIndeks - 1].y = 30;
+                        }
+                        if (pozycjaKlocka[ostatniIndeks - 1].y == 30 && znak == f)
+                        {
+                            pozycjaKlocka[ostatniIndeks - 1].y = 0;
+                        }
+
+                        p.WriteAt("@", pozycjaKlocka[ii].x, pozycjaKlocka[ii].y);
                     }
+
+                    int wartoscPionowa = pozycjaKlocka[14].y;
+                    int wartoscPozioma = pozycjaKlocka[14].x;
+                    int wartoscDecyzyjna = 0;
+
+                    for (int iii = 0; iii < ostatniIndeks-1; iii++)
+                    {
+                        if(pozycjaKlocka[iii].x == wartoscPozioma && pozycjaKlocka[iii].y == wartoscPionowa)
+                        {
+                            wartoscDecyzyjna = 1;
+                        }
+
+                    }
+                    if(wartoscDecyzyjna == 1)
+                    {
+                        Console.Write("PRZEGRALES");
+                        Console.ReadKey();
+                    }
+                    
+                    Thread.Sleep(500);
+                    Console.Clear();
+                }
             }
         }
     }
