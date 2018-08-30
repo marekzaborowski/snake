@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 
+
 namespace Snake
 {
     class Program
@@ -8,21 +9,66 @@ namespace Snake
         static void Main(string[] args)
         {
             pozycjonowanie p = new pozycjonowanie();
+            pozycjonowanie jablko = new pozycjonowanie();
             int ostatniIndeks = 15;
             punkt[] pozycjaKlocka = new punkt[ostatniIndeks];
 
+            Random jablkoX = new Random();
+            Random jablkoY = new Random();
+            int zmiennaX = jablkoX.Next(120);
+            int zmiennaY = jablkoY.Next(30);
+
+
             while (true)
             {
-                char znak = 'x', f = 'f', r = 'r', d = 'd', g = 'g', x = 'x';
+                char znak = 'r', s = 's', w = 'w', a = 'a', d = 'd', r = 'r';
                 int i = 0, j = 0, b = 0;
 
                 for (int k=0; 1 < 2;)
                     {
                     if (Console.KeyAvailable)
                     {
+                        if(znak == s)
+                        {
+                            znak = Console.ReadKey(true).KeyChar;
+                            if (znak == w)
+                            {
+                                znak = s;
+                            }
+                        }
+                        else
+                        if (znak == w)
+                        {
+                            znak = Console.ReadKey(true).KeyChar;
+                            if (znak == s)
+                            {
+                                znak = w;
+                            }
+                        }
+                        else
+                        if (znak == a)
+                        {
+                            znak = Console.ReadKey(true).KeyChar;
+                            if (znak == d)
+                            {
+                                znak = a;
+                            }
+                        }
+                        else
+                        if (znak == d)
+                        {
+                            znak = Console.ReadKey(true).KeyChar;
+                            if (znak == a)
+                            {
+                                znak = d;
+                            }
+                        }
+                        else
                         znak = Console.ReadKey(true).KeyChar;
+
+
                     }
-                    if (znak == x)
+                    if (znak == r)
                     {
                         for(int q=0; q<ostatniIndeks; q++)
                         {
@@ -34,7 +80,7 @@ namespace Snake
                         j = 0;
                         b = 0;
                     }
-                    if (znak == g)
+                    if (znak == d)
                     {                      
                         punkt zmienny = new punkt(pozycjaKlocka[ostatniIndeks-1].x+1, pozycjaKlocka[ostatniIndeks-1].y);
                         for(int q=0; q<ostatniIndeks; q++)
@@ -47,7 +93,7 @@ namespace Snake
                             pozycjaKlocka[q] = pozycjaKlocka[q+1];
                         }
                     }
-                    if (znak == f)
+                    if (znak == s)
                     {                     
                         punkt zmienny = new punkt(pozycjaKlocka[ostatniIndeks-1].x, pozycjaKlocka[ostatniIndeks-1].y+1);
                         for (int q = 0; q < ostatniIndeks; q++)
@@ -60,7 +106,7 @@ namespace Snake
                                 pozycjaKlocka[q] = pozycjaKlocka[q + 1];
                         }
                     }
-                    if (znak == r)
+                    if (znak == w)
                     {
                         punkt zmienny = new punkt(pozycjaKlocka[ostatniIndeks-1].x, pozycjaKlocka[ostatniIndeks-1].y - 1);
                         for (int q = 0; q < ostatniIndeks; q++)
@@ -73,7 +119,7 @@ namespace Snake
                                 pozycjaKlocka[q] = pozycjaKlocka[q + 1];
                         }
                     }
-                    if (znak == d)
+                    if (znak == a)
                     {
                         punkt zmienny = new punkt(pozycjaKlocka[ostatniIndeks-1].x-1, pozycjaKlocka[ostatniIndeks-1].y);
                         for (int q = 0; q < ostatniIndeks; q++)
@@ -89,24 +135,25 @@ namespace Snake
 
                     for (int ii = 0; ii <= ostatniIndeks-1; ii++)
                     {
-                        if (pozycjaKlocka[ostatniIndeks-1].x == -1 && znak == d )
+                        if (pozycjaKlocka[ostatniIndeks-1].x == -1 && znak == a )
                         {
                             pozycjaKlocka[ostatniIndeks-1].x = 119;
                         }
-                        if (pozycjaKlocka[ostatniIndeks - 1].x == 120 && znak == g)
+                        if (pozycjaKlocka[ostatniIndeks - 1].x == 120 && znak == d)
                         {
                             pozycjaKlocka[ostatniIndeks - 1].x = 0;
                         }
-                        if (pozycjaKlocka[ostatniIndeks - 1].y == 0 && znak == r)
+                        if (pozycjaKlocka[ostatniIndeks - 1].y == 0 && znak == w)
                         {
                             pozycjaKlocka[ostatniIndeks - 1].y = 30;
                         }
-                        if (pozycjaKlocka[ostatniIndeks - 1].y == 30 && znak == f)
+                        if (pozycjaKlocka[ostatniIndeks - 1].y == 30 && znak == s)
                         {
                             pozycjaKlocka[ostatniIndeks - 1].y = 0;
                         }
 
                         p.WriteAt("@", pozycjaKlocka[ii].x, pozycjaKlocka[ii].y);
+                        
                     }
 
                     int wartoscPionowa = pozycjaKlocka[14].y;
@@ -126,8 +173,11 @@ namespace Snake
                         Console.Write("PRZEGRALES");
                         Console.ReadKey();
                     }
-                    
-                    Thread.Sleep(500);
+
+                    jablko.WriteAt("O", zmiennaX, zmiennaY);
+                    Cursor.Hide();
+
+                    Thread.Sleep(50);
                     Console.Clear();
                 }
             }
