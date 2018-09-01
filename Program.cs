@@ -10,13 +10,15 @@ namespace Snake
         {
             pozycjonowanie p = new pozycjonowanie();
             pozycjonowanie jablko = new pozycjonowanie();
-            int ostatniIndeks = 15;
-            punkt[] pozycjaKlocka = new punkt[ostatniIndeks];
+            int ostatniIndeks = 3;
+            int maksWielkoscWeza = 1000;
+            punkt[] pozycjaKlocka = new punkt[maksWielkoscWeza];
 
             Random jablkoX = new Random();
             Random jablkoY = new Random();
             int zmiennaX = jablkoX.Next(120);
             int zmiennaY = jablkoY.Next(30);
+            int zmiennaPomocnicza = 0;
 
 
             while (true)
@@ -68,6 +70,7 @@ namespace Snake
 
 
                     }
+                    
                     if (znak == r)
                     {
                         for(int q=0; q<ostatniIndeks; q++)
@@ -80,57 +83,152 @@ namespace Snake
                         j = 0;
                         b = 0;
                     }
+
+                    
+
                     if (znak == d)
                     {                      
-                        punkt zmienny = new punkt(pozycjaKlocka[ostatniIndeks-1].x+1, pozycjaKlocka[ostatniIndeks-1].y);
                         for(int q=0; q<ostatniIndeks; q++)
                         {
-                            if(q==ostatniIndeks-1)
+
+                            if (q==ostatniIndeks-1)
                             {
-                                pozycjaKlocka[q] = zmienny;
-                            }
+                                
+                                if (zmiennaPomocnicza == 1)
+                                {
+                                    pozycjaKlocka[q] = pozycjaKlocka[q - 1];
+                                    punkt zmienny = new punkt(pozycjaKlocka[q].x + 1, pozycjaKlocka[q].y);
+                                    pozycjaKlocka[q] = zmienny;
+                                }
+                                else
+                                {
+                                    punkt zmienny = new punkt(pozycjaKlocka[ostatniIndeks - 1].x + 1, pozycjaKlocka[ostatniIndeks - 1].y);
+                                    pozycjaKlocka[q] = zmienny;
+                                }                                
+                            }                     
                             else
-                            pozycjaKlocka[q] = pozycjaKlocka[q+1];
+                            if((pozycjaKlocka[0].x != zmiennaX || pozycjaKlocka[0].y != zmiennaY || q != 0 ) && zmiennaPomocnicza == 0)
+                            {
+                                pozycjaKlocka[q] = pozycjaKlocka[q + 1];
+                            }
+                            else 
+                            if(pozycjaKlocka[0].x == zmiennaX && pozycjaKlocka[0].y == zmiennaY)
+                            {
+                                zmiennaX = jablkoX.Next(120);
+                                zmiennaY = jablkoY.Next(30);
+                                ostatniIndeks++;
+                                zmiennaPomocnicza = 1;
+                            }
                         }
+                        zmiennaPomocnicza = 0;
                     }
                     if (znak == s)
-                    {                     
-                        punkt zmienny = new punkt(pozycjaKlocka[ostatniIndeks-1].x, pozycjaKlocka[ostatniIndeks-1].y+1);
+                    {
                         for (int q = 0; q < ostatniIndeks; q++)
                         {
+
                             if (q == ostatniIndeks - 1)
                             {
-                                pozycjaKlocka[q] = zmienny;
+
+                                if (zmiennaPomocnicza == 1)
+                                {
+                                    pozycjaKlocka[q] = pozycjaKlocka[q - 1];
+                                    punkt zmienny = new punkt(pozycjaKlocka[q].x, pozycjaKlocka[q].y+1);
+                                    pozycjaKlocka[q] = zmienny;
+                                }
+                                else
+                                {
+                                    punkt zmienny = new punkt(pozycjaKlocka[ostatniIndeks - 1].x, pozycjaKlocka[ostatniIndeks - 1].y+1);
+                                    pozycjaKlocka[q] = zmienny;
+                                }
                             }
                             else
+                            if ((pozycjaKlocka[0].x != zmiennaX || pozycjaKlocka[0].y != zmiennaY || q != 0) && zmiennaPomocnicza == 0)
+                            {
                                 pozycjaKlocka[q] = pozycjaKlocka[q + 1];
+                            }
+                            else
+                            if (pozycjaKlocka[0].x == zmiennaX && pozycjaKlocka[0].y == zmiennaY)
+                            {
+                                zmiennaX = jablkoX.Next(120);
+                                zmiennaY = jablkoY.Next(30);
+                                ostatniIndeks++;
+                                zmiennaPomocnicza = 1;
+                            }
                         }
+                        zmiennaPomocnicza = 0;
                     }
                     if (znak == w)
                     {
-                        punkt zmienny = new punkt(pozycjaKlocka[ostatniIndeks-1].x, pozycjaKlocka[ostatniIndeks-1].y - 1);
                         for (int q = 0; q < ostatniIndeks; q++)
                         {
+
                             if (q == ostatniIndeks - 1)
                             {
-                                pozycjaKlocka[q] = zmienny;
+
+                                if (zmiennaPomocnicza == 1)
+                                {
+                                    pozycjaKlocka[q] = pozycjaKlocka[q - 1];
+                                    punkt zmienny = new punkt(pozycjaKlocka[q].x, pozycjaKlocka[q].y-1);
+                                    pozycjaKlocka[q] = zmienny;
+                                }
+                                else
+                                {
+                                    punkt zmienny = new punkt(pozycjaKlocka[ostatniIndeks - 1].x, pozycjaKlocka[ostatniIndeks - 1].y-1);
+                                    pozycjaKlocka[q] = zmienny;
+                                }
                             }
                             else
+                            if ((pozycjaKlocka[0].x != zmiennaX || pozycjaKlocka[0].y != zmiennaY || q != 0) && zmiennaPomocnicza == 0)
+                            {
                                 pozycjaKlocka[q] = pozycjaKlocka[q + 1];
+                            }
+                            else
+                            if (pozycjaKlocka[0].x == zmiennaX && pozycjaKlocka[0].y == zmiennaY)
+                            {
+                                zmiennaX = jablkoX.Next(120);
+                                zmiennaY = jablkoY.Next(30);
+                                ostatniIndeks++;
+                                zmiennaPomocnicza = 1;
+                            }
                         }
+                        zmiennaPomocnicza = 0;
                     }
                     if (znak == a)
                     {
-                        punkt zmienny = new punkt(pozycjaKlocka[ostatniIndeks-1].x-1, pozycjaKlocka[ostatniIndeks-1].y);
                         for (int q = 0; q < ostatniIndeks; q++)
                         {
+
                             if (q == ostatniIndeks - 1)
                             {
-                                pozycjaKlocka[q] = zmienny;
+
+                                if (zmiennaPomocnicza == 1)
+                                {
+                                    pozycjaKlocka[q] = pozycjaKlocka[q - 1];
+                                    punkt zmienny = new punkt(pozycjaKlocka[q].x - 1, pozycjaKlocka[q].y);
+                                    pozycjaKlocka[q] = zmienny;
+                                }
+                                else
+                                {
+                                    punkt zmienny = new punkt(pozycjaKlocka[ostatniIndeks - 1].x - 1, pozycjaKlocka[ostatniIndeks - 1].y);
+                                    pozycjaKlocka[q] = zmienny;
+                                }
                             }
                             else
+                            if ((pozycjaKlocka[0].x != zmiennaX || pozycjaKlocka[0].y != zmiennaY || q != 0) && zmiennaPomocnicza == 0)
+                            {
                                 pozycjaKlocka[q] = pozycjaKlocka[q + 1];
+                            }
+                            else
+                            if (pozycjaKlocka[0].x == zmiennaX && pozycjaKlocka[0].y == zmiennaY)
+                            {
+                                zmiennaX = jablkoX.Next(120);
+                                zmiennaY = jablkoY.Next(30);
+                                ostatniIndeks++;
+                                zmiennaPomocnicza = 1;
+                            }
                         }
+                        zmiennaPomocnicza = 0;
                     }
 
                     for (int ii = 0; ii <= ostatniIndeks-1; ii++)
@@ -156,8 +254,8 @@ namespace Snake
                         
                     }
 
-                    int wartoscPionowa = pozycjaKlocka[14].y;
-                    int wartoscPozioma = pozycjaKlocka[14].x;
+                    int wartoscPionowa = pozycjaKlocka[ostatniIndeks-1].y;
+                    int wartoscPozioma = pozycjaKlocka[ostatniIndeks-1].x;
                     int wartoscDecyzyjna = 0;
 
                     for (int iii = 0; iii < ostatniIndeks-1; iii++)
@@ -174,8 +272,8 @@ namespace Snake
                         Console.ReadKey();
                     }
 
-                    jablko.WriteAt("O", zmiennaX, zmiennaY);
-                    Cursor.Hide();
+                    jablko.WriteAt("@", zmiennaX, zmiennaY);
+                   
 
                     Thread.Sleep(50);
                     Console.Clear();
