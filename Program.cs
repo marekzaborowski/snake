@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-
+using System.Collections.Generic;
 
 namespace Snake
 {
@@ -19,6 +19,14 @@ namespace Snake
             int zmiennaX = jablkoX.Next(120);
             int zmiennaY = jablkoY.Next(30);
             int zmiennaPomocnicza = 0;
+            int zmiennaPomocnicza2 = 0;
+
+            pozycjaKlocka[999].x = zmiennaX;
+            pozycjaKlocka[999].y = zmiennaY;
+
+            Queue<punkt> QueueOfAples = new Queue<punkt>();
+            QueueOfAples.Enqueue(pozycjaKlocka[999]);
+            
 
 
             while (true)
@@ -84,16 +92,24 @@ namespace Snake
                         b = 0;
                     }
 
-                    
+                    if (pozycjaKlocka[ostatniIndeks - 1].x == zmiennaX && pozycjaKlocka[ostatniIndeks - 1].y == zmiennaY)
+                    {
+                        if (zmiennaPomocnicza2 == 1)
+                        {
+                            QueueOfAples.Enqueue(pozycjaKlocka[ostatniIndeks - 1]);
+                        }
+                        zmiennaX = jablkoX.Next(120);
+                        zmiennaY = jablkoY.Next(30);
+                        zmiennaPomocnicza2 = 1;
+                    }
 
                     if (znak == d)
                     {                      
                         for(int q=0; q<ostatniIndeks; q++)
                         {
 
-                            if (q==ostatniIndeks-1)
+                            if (q == ostatniIndeks - 1)
                             {
-                                
                                 if (zmiennaPomocnicza == 1)
                                 {
                                     pozycjaKlocka[q] = pozycjaKlocka[q - 1];
@@ -104,20 +120,31 @@ namespace Snake
                                 {
                                     punkt zmienny = new punkt(pozycjaKlocka[ostatniIndeks - 1].x + 1, pozycjaKlocka[ostatniIndeks - 1].y);
                                     pozycjaKlocka[q] = zmienny;
-                                }                                
-                            }                     
+                                }
+                            }
                             else
-                            if((pozycjaKlocka[0].x != zmiennaX || pozycjaKlocka[0].y != zmiennaY || q != 0 ) && zmiennaPomocnicza == 0)
+                            if (QueueOfAples.Count == 0)
+                            {
+                                if (zmiennaPomocnicza == 0)
+                                {
+                                    pozycjaKlocka[q] = pozycjaKlocka[q + 1];
+                                }
+
+                            }
+                            else
+                            if ((pozycjaKlocka[0].x != QueueOfAples.Peek().x || pozycjaKlocka[0].y != QueueOfAples.Peek().y || q != 0) && zmiennaPomocnicza == 0)
                             {
                                 pozycjaKlocka[q] = pozycjaKlocka[q + 1];
                             }
-                            else 
-                            if(pozycjaKlocka[0].x == zmiennaX && pozycjaKlocka[0].y == zmiennaY)
+                            else
+                            if (QueueOfAples.Count != 0)
                             {
-                                zmiennaX = jablkoX.Next(120);
-                                zmiennaY = jablkoY.Next(30);
-                                ostatniIndeks++;
-                                zmiennaPomocnicza = 1;
+                                if (pozycjaKlocka[0].x == QueueOfAples.Peek().x && pozycjaKlocka[0].y == QueueOfAples.Peek().y)
+                                {
+                                    QueueOfAples.Dequeue();
+                                    ostatniIndeks++;
+                                    zmiennaPomocnicza = 1;
+                                }
                             }
                         }
                         zmiennaPomocnicza = 0;
@@ -129,7 +156,6 @@ namespace Snake
 
                             if (q == ostatniIndeks - 1)
                             {
-
                                 if (zmiennaPomocnicza == 1)
                                 {
                                     pozycjaKlocka[q] = pozycjaKlocka[q - 1];
@@ -143,17 +169,28 @@ namespace Snake
                                 }
                             }
                             else
-                            if ((pozycjaKlocka[0].x != zmiennaX || pozycjaKlocka[0].y != zmiennaY || q != 0) && zmiennaPomocnicza == 0)
+                            if (QueueOfAples.Count == 0)
+                            {
+                                if (zmiennaPomocnicza == 0)
+                                {
+                                    pozycjaKlocka[q] = pozycjaKlocka[q + 1];
+                                }
+
+                            }
+                            else
+                            if ((pozycjaKlocka[0].x != QueueOfAples.Peek().x || pozycjaKlocka[0].y != QueueOfAples.Peek().y || q != 0) && zmiennaPomocnicza == 0)
                             {
                                 pozycjaKlocka[q] = pozycjaKlocka[q + 1];
                             }
                             else
-                            if (pozycjaKlocka[0].x == zmiennaX && pozycjaKlocka[0].y == zmiennaY)
+                            if (QueueOfAples.Count != 0)
                             {
-                                zmiennaX = jablkoX.Next(120);
-                                zmiennaY = jablkoY.Next(30);
-                                ostatniIndeks++;
-                                zmiennaPomocnicza = 1;
+                                if (pozycjaKlocka[0].x == QueueOfAples.Peek().x && pozycjaKlocka[0].y == QueueOfAples.Peek().y)
+                                {
+                                    QueueOfAples.Dequeue();
+                                    ostatniIndeks++;
+                                    zmiennaPomocnicza = 1;
+                                }
                             }
                         }
                         zmiennaPomocnicza = 0;
@@ -165,7 +202,6 @@ namespace Snake
 
                             if (q == ostatniIndeks - 1)
                             {
-
                                 if (zmiennaPomocnicza == 1)
                                 {
                                     pozycjaKlocka[q] = pozycjaKlocka[q - 1];
@@ -179,17 +215,28 @@ namespace Snake
                                 }
                             }
                             else
-                            if ((pozycjaKlocka[0].x != zmiennaX || pozycjaKlocka[0].y != zmiennaY || q != 0) && zmiennaPomocnicza == 0)
+                            if (QueueOfAples.Count == 0)
+                            {
+                                if (zmiennaPomocnicza == 0)
+                                {
+                                    pozycjaKlocka[q] = pozycjaKlocka[q + 1];
+                                }
+
+                            }
+                            else
+                            if ((pozycjaKlocka[0].x != QueueOfAples.Peek().x || pozycjaKlocka[0].y != QueueOfAples.Peek().y || q != 0) && zmiennaPomocnicza == 0)
                             {
                                 pozycjaKlocka[q] = pozycjaKlocka[q + 1];
                             }
                             else
-                            if (pozycjaKlocka[0].x == zmiennaX && pozycjaKlocka[0].y == zmiennaY)
+                            if (QueueOfAples.Count != 0)
                             {
-                                zmiennaX = jablkoX.Next(120);
-                                zmiennaY = jablkoY.Next(30);
-                                ostatniIndeks++;
-                                zmiennaPomocnicza = 1;
+                                if (pozycjaKlocka[0].x == QueueOfAples.Peek().x && pozycjaKlocka[0].y == QueueOfAples.Peek().y)
+                                {
+                                    QueueOfAples.Dequeue();
+                                    ostatniIndeks++;
+                                    zmiennaPomocnicza = 1;
+                                }
                             }
                         }
                         zmiennaPomocnicza = 0;
@@ -201,7 +248,6 @@ namespace Snake
 
                             if (q == ostatniIndeks - 1)
                             {
-
                                 if (zmiennaPomocnicza == 1)
                                 {
                                     pozycjaKlocka[q] = pozycjaKlocka[q - 1];
@@ -215,17 +261,28 @@ namespace Snake
                                 }
                             }
                             else
-                            if ((pozycjaKlocka[0].x != zmiennaX || pozycjaKlocka[0].y != zmiennaY || q != 0) && zmiennaPomocnicza == 0)
+                            if (QueueOfAples.Count == 0)
+                            {
+                                if (zmiennaPomocnicza == 0)
+                                {
+                                    pozycjaKlocka[q] = pozycjaKlocka[q + 1];
+                                }
+
+                            }
+                            else
+                            if ((pozycjaKlocka[0].x != QueueOfAples.Peek().x || pozycjaKlocka[0].y != QueueOfAples.Peek().y || q != 0) && zmiennaPomocnicza == 0)
                             {
                                 pozycjaKlocka[q] = pozycjaKlocka[q + 1];
                             }
                             else
-                            if (pozycjaKlocka[0].x == zmiennaX && pozycjaKlocka[0].y == zmiennaY)
+                            if (QueueOfAples.Count != 0)
                             {
-                                zmiennaX = jablkoX.Next(120);
-                                zmiennaY = jablkoY.Next(30);
-                                ostatniIndeks++;
-                                zmiennaPomocnicza = 1;
+                                if (pozycjaKlocka[0].x == QueueOfAples.Peek().x && pozycjaKlocka[0].y == QueueOfAples.Peek().y)
+                                {
+                                    QueueOfAples.Dequeue();
+                                    ostatniIndeks++;
+                                    zmiennaPomocnicza = 1;
+                                }
                             }
                         }
                         zmiennaPomocnicza = 0;
